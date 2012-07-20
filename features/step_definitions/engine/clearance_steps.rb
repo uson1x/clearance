@@ -115,10 +115,6 @@ Then /^I am told email is unknown$/ do
   page.should have_content("Unknown email")
 end
 
-Then /^I am told to enter a valid email address$/ do
-  page.should have_content("Must be a valid email address")
-end
-
 Then /^I am told to enter a password$/ do
   page.should have_content("Password can't be blank")
 end
