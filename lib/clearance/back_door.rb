@@ -18,8 +18,9 @@ module Clearance
   #
   #   visit new_feedback_path(as: user)
   class BackDoor
-    def initialize(app)
+    def initialize(app, finder = :find)
       @app = app
+      @finder = finder
     end
 
     def call(env)
@@ -34,7 +35,7 @@ module Clearance
       user_id = params['as']
 
       if user_id.present?
-        user = Clearance.configuration.user_model.find(user_id)
+        user = Clearance.configuration.user_model.public_send(@finder, user_id)
         env[:clearance].sign_in(user)
       end
     end

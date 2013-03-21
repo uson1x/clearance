@@ -24,6 +24,19 @@ describe Clearance::BackDoor do
     result.should eq mock_app.call(env)
   end
 
+  it 'uses a custom finder method if provided' do
+    user_id = '123'
+    user = stub('user')
+    User.stubs(:find_by_foo!).with(user_id).returns(user)
+    env = env_for_user_id(user_id)
+    back_door = Clearance::BackDoor.new(mock_app, :find_by_foo!)
+
+    result = back_door.call(env)
+
+    env[:clearance].should have_received(:sign_in).with(user)
+    result.should eq mock_app.call(env)
+  end
+
   def env_without_user_id
     env_for_user_id('')
   end
