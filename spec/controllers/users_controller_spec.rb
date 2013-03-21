@@ -41,7 +41,8 @@ describe Clearance::UsersController do
 
     describe 'on POST to #create with valid attributes and a session return url' do
       before do
-        user_attributes = FactoryGirl.attributes_for(:user)
+        email = ' na me @ exam pl e . co m '
+        user_attributes = FactoryGirl.attributes_for(:user, email: email)
         @old_user_count = User.count
         @return_url = '/url_in_the_session'
         @request.session[:return_to] = @return_url
@@ -52,6 +53,12 @@ describe Clearance::UsersController do
 
       it 'should create a new user' do
         User.count.should == @old_user_count + 1
+      end
+
+      it 'should strip whitespace from email addresses' do
+        user = User.last
+
+        user.email.should == 'name@example.com'
       end
 
       it { should redirect_to(@return_url) }
