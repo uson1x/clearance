@@ -65,6 +65,7 @@ Clearance.configure do |config|
   config.secure_cookie = false
   config.user_model = User
   config.sign_in_guards = []
+  config.allow_sign_up = true
 end
 ```
 

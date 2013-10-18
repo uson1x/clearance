@@ -2,6 +2,7 @@ Thank you to all the [contributors](https://github.com/thoughtbot/clearance/grap
 
 New on Master:
 
+* Sign in can now be disabled with `config.allow_sign_in = false`
 * Email validation is now done with `EmailValidator` [strict
   mode](https://github.com/balexand/email_validator#strict-mode).
 * The `cookie_expiration` configuration lambda can now be called with  a

@@ -1,5 +1,7 @@
 module Clearance
   class Configuration
+    attr_writer :allow_sign_up
+
     attr_accessor \
       :cookie_expiration,
       :httponly,
@@ -17,10 +19,23 @@ module Clearance
       @secure_cookie = false
       @redirect_url = '/'
       @sign_in_guards = []
+      @allow_sign_up = true
     end
 
     def user_model
       @user_model || ::User
+    end
+
+    def allow_sign_up?
+      @allow_sign_up
+    end
+
+    def  user_actions
+      if allow_sign_up?
+        [:create]
+      else
+        []
+      end
     end
   end
 
