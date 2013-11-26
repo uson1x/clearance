@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+Clearance::Engine.routes.prepend do
   resources :passwords,
     :controller => 'clearance/passwords',
     :only => [:create, :new]
